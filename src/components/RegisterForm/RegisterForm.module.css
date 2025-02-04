@@ -1,33 +1,27 @@
 .form {
-    max-width: 400px;
+    width: 320px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
     margin-bottom: 15px;
 }
 
-.label {
-    font-size: 14px;
-    color: #333;
-}
-
 .input {
+    width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    outline: none;
+    font-size: 16px;
 }
 
-.input:focus {
-    border-color: #0066cc;
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .button {
@@ -38,16 +32,10 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: 500;
+    font-size: 16px;
     transition: background 0.2s;
 }
 
 .button:hover {
     background: #0052a3;
-}
-
-.error {
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 3px;
 }
