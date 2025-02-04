@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
-import { selectContacts } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contacts/operations";
+import { selectContacts } from "../../redux/contacts/slice";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
@@ -51,11 +51,11 @@ const ContactForm = () => {
         Phone
         <input
           type="tel"
-          name="phone"
+          name="number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          pattern="[0-9+()-\s]+"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          pattern="[0-9\s\-\+]+"
+          title="Phone number must be digits and can contain spaces, dashes and plus"
           required
           className={styles.input}
         />
