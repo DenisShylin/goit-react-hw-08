@@ -1,32 +1,25 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
-import { selectContacts } from "../../redux/contacts/slice";
+import { contactsSelectors } from "../../redux/contacts/selectors";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const contacts = useSelector(contactsSelectors.getItems);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!Array.isArray(contacts)) {
-      console.error("Contacts is not an array:", contacts);
-      return;
-    }
-
-    const isDuplicate = contacts.some(
-      (contact) => contact.name.toLowerCase() === name.toLowerCase()
-    );
-
-    if (isDuplicate) {
+    if (
+      contacts.some(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       alert(`${name} is already in contacts`);
       return;
     }
-
     dispatch(addContact({ name, phone }));
     setName("");
     setPhone("");
@@ -41,7 +34,7 @@ const ContactForm = () => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          pattern="[a-zA-Zа-яА-Я]+(([' ][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*"
+          pattern="[a-zA-Zа-яА-Я]+(([' ][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я])*"
           title="Name may contain only letters, apostrophe, dash and spaces"
           required
           className={styles.input}
@@ -51,7 +44,7 @@ const ContactForm = () => {
         Phone
         <input
           type="tel"
-          name="number"
+          name="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           pattern="[0-9\s\-\+]+"

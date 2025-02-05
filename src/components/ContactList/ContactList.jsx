@@ -1,23 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
-import {
-  selectFilteredContacts,
-  selectLoading,
-} from "../../redux/contacts/slice";
+import { contactsSelectors } from "../../redux/contacts/selectors";
 import styles from "./ContactList.module.css";
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const filteredContacts = useSelector(selectFilteredContacts);
-  const isLoading = useSelector(selectLoading);
-
-  if (isLoading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  const contacts = useSelector(contactsSelectors.getFilteredContacts);
+  const isLoading = useSelector(contactsSelectors.getIsLoading);
 
   return (
     <ul className={styles.list}>
-      {filteredContacts?.map(({ id, name, number }) => (
+      {contacts.map(({ id, name, number }) => (
         <li key={id} className={styles.item}>
           <span className={styles.contactInfo}>
             {name}: {number}
