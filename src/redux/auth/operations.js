@@ -28,11 +28,20 @@ export const login = createAsyncThunk(
   "auth/login",
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post("/users/login", credentials);
+      console.log("Login credentials:", credentials);
+
+      const res = await axios.post("/users/login", {
+        email: credentials.email,
+        password: credentials.password,
+      });
+
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      console.log("Login error:", error.response?.data);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );

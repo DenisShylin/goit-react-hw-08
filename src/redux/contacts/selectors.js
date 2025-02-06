@@ -1,15 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 const getContactsState = (state) => state.contacts;
-const getFilterState = (state) => state.filter.name || "";
+const getFilterState = (state) => state.filter;
 
 export const contactsSelectors = {
   getItems: (state) => getContactsState(state).items,
   getIsLoading: (state) => getContactsState(state).isLoading,
   getError: (state) => getContactsState(state).error,
-  getFilter: () => getFilterState,
+  getFilter: (state) => getFilterState(state).name,
   getFilteredContacts: createSelector(
-    [(state) => getContactsState(state).items, getFilterState],
+    [
+      (state) => getContactsState(state).items,
+      (state) => getFilterState(state).name,
+    ],
     (contacts, filter) => {
       if (!filter) return contacts;
       return contacts.filter((contact) =>
